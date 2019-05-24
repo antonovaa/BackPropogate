@@ -1,0 +1,8 @@
+﻿  Layer.cpp
+  MultiOutNeuronNetwork.cpp
+  NetWork.cpp
+  Perceptron.cpp
+d:\development\testversion\testversion\perceptron.cpp(6): error C2027: использование неопределенного типа "Layer"
+  d:\development\testversion\testversion\perceptron.h(5): note:  см. объявление "Layer"
+  TestVersion.cpp
+  Создание кода...
