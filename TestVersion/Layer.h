@@ -13,15 +13,18 @@ public:
 	Layer(int countPerceptrons, Layer* privLayer);
 	~Layer();
 
-
-	void createLayer();
 	Perceptron *getPerceptron(int number);
+	vector<Perceptron *> getPerceptronsInLayer();
 	void setPerceptronValuesForLayer(float* inputTrain);
-	//void setPerceptronWeightForLayer();
-	void calculateSetPerceptronValueForLayer(Layer* prevLayer);
+	void calculateSetPerceptronValueForLayer();
+	void calculatePerceptronDeltaForLayer();
 	int getCountPerceptrons();
 
-	void showNumberPerceptron();
+	Layer* getPriviousLayer();
+
+	void showNumberPerceptron();	
+	//void setPerceptronWeightForLayer();
+
 private:
 	int count;
 	vector<Perceptron*> percList;

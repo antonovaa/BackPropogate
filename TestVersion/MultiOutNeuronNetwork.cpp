@@ -32,8 +32,9 @@ int MultiOutNeuronNetwork::getOutputCount() {
 
 void MultiOutNeuronNetwork::showNumberPerceptron()
 {
-	for (int i = 0; i < outputCount; i++)
+	for (int i = 0; i < 1; i++)
 	{
+		cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Output params= " << i << endl;
 		nnList[i]->showNumberLayer();
 	}
 }

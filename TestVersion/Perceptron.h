@@ -1,16 +1,12 @@
 #pragma once
-//#ifndef PERCEPTRON_H
-//#define PERCEPTRON_H
-//#include "Layer.h"
-class Layer;
 #include "InputTrainParams.h"
-
+#include <vector>
 
 class Perceptron
 {
 public:
 	
-	Perceptron(Layer* prLayer);
+	Perceptron(vector<Perceptron*> PrivPerceptron);
 	
 	~Perceptron();
 
@@ -41,17 +37,11 @@ public:
 
 	void showWeightPerceptron();
 	void setWeightLinkPrivLayer(int countPerceptronsInPrivLayer);
-	Layer* getPrivLayer() {
-		return privLayer;
-	}
 private:
 	int countPerceptronsInPrivLayer;
 	float *weight;
 	float oldWeight;
 	float delta;
 	float value;
-	Layer* privLayer;
-
+	vector<Perceptron*> PrivPerceptron;
 };
-
-//#endif
