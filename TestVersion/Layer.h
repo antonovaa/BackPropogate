@@ -10,7 +10,8 @@ using namespace std;
 class Layer
 {
 public:
-	Layer(int countPerceptrons, Layer* privLayer);
+	Layer(int countPerceptrons, Layer* privLayer,float h);
+	Layer(int countPerceptrons, Layer* privLayer, float h, float*w);
 	~Layer();
 
 	Perceptron *getPerceptron(int number);
@@ -23,9 +24,11 @@ public:
 	Layer* getPriviousLayer();
 
 	void showNumberPerceptron();	
-	//void setPerceptronWeightForLayer();
+	void calculatePerceptronWeightForLayer();
+	void testPerceptron(float* inputTest);
 
 private:
+	float h;
 	int count;
 	vector<Perceptron*> percList;
 	int countPrivPerceptrons;

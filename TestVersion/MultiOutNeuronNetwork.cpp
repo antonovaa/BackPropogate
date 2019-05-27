@@ -4,11 +4,14 @@
 /*
 outputCount = count params outputs
 */
-MultiOutNeuronNetwork::MultiOutNeuronNetwork(int outputCount,int inputCount, int countHiddenLayers, int *hiddenLayers, vector<InputTrainParams*> inputTrain):outputCount(outputCount), inputCount(inputCount)
+MultiOutNeuronNetwork::MultiOutNeuronNetwork(int outputCount,int inputCount, int countHiddenLayers, int *hiddenLayers, vector<InputTrainParams*> inputTrain,float h):
+	outputCount(outputCount), 
+	inputCount(inputCount),
+	h(h)
 {
 	for (int i = 0; i < outputCount; i++)
 	{
-		NetWork *nn = new NetWork(countHiddenLayers,hiddenLayers, inputCount, inputTrain,i);
+		NetWork *nn = new NetWork(countHiddenLayers,hiddenLayers, inputCount, inputTrain,i, h);
 		nnList.push_back(nn);
 	}
 }
@@ -32,9 +35,17 @@ int MultiOutNeuronNetwork::getOutputCount() {
 
 void MultiOutNeuronNetwork::showNumberPerceptron()
 {
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < getOutputCount(); i++)
 	{
 		cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Output params= " << i << endl;
 		nnList[i]->showNumberLayer();
+	}
+}
+void MultiOutNeuronNetwork::testPerceptron(vector<InputTrainParams*> inputTrain)
+{
+	for (int i = 0; i < getOutputCount(); i++)
+	{
+		cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Output params for test= " << i << endl;
+		nnList[i]->testLayers(inputTrain);
 	}
 }

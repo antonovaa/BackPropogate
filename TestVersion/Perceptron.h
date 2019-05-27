@@ -9,23 +9,19 @@ public:
 	Perceptron(vector<Perceptron*> PrivPerceptron);
 	
 	~Perceptron();
-
-
+	void setFactValue(float newValue);
 	// Сигмоид функция
 	float sigmoid(float in);
 	float *getWeight() {return weight;}
 	void setWeight(float *newWeight) {weight = newWeight;}
-	float getOldWeight() {
-		return oldWeight;
+	void setWeight(int n,float w) {
+		weight[n]=w;
 	}
-	void setOldWeight(float weight) {
-		oldWeight = weight;
+	float getDeltaError() {
+		return deltaError;
 	}
-	float getDelta() {
-		return delta;
-	}
-	void setDelta(float newDelta) {
-		delta = newDelta;
+	void setDeltaError(float newDeltaError) {
+		deltaError = newDeltaError;
 	}
 	float getValue() {
 		return value;
@@ -40,8 +36,7 @@ public:
 private:
 	int countPerceptronsInPrivLayer;
 	float *weight;
-	float oldWeight;
-	float delta;
+	float deltaError;
 	float value;
 	vector<Perceptron*> PrivPerceptron;
 };

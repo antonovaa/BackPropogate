@@ -6,15 +6,16 @@
 class NetWork
 {
 public:
-	NetWork(int countHiddenLayers,int *hiddenLayers, int countInputParam, vector<InputTrainParams*> inputTrain,int numberOutputParam);
+	NetWork(int countHiddenLayers,int *hiddenLayers, int countInputParam, vector<InputTrainParams*> inputTrain,int numberOutputParam,float h);
 	~NetWork();
 
 	void feedForward();
 	void backPropogation();
-
+	void testLayers(vector<InputTrainParams*> inputTrain);
 	void showNumberLayer();
 
 private:
+	float h;
 	vector<InputTrainParams*> inputForTrain;
 	vector<Layer*> layerList;
 	int numberOutputParam;

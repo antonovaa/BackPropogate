@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Layer.h"
 
-Layer::Layer(int countPerceptrons,Layer* privLayer):priviousLayer(privLayer), count(countPerceptrons)
+Layer::Layer(int countPerceptrons,Layer* privLayer,float h):priviousLayer(privLayer), count(countPerceptrons),h(h)
 {
 	if (priviousLayer) {
 		countPrivPerceptrons = priviousLayer->getCountPerceptrons();
@@ -23,7 +23,21 @@ Layer::Layer(int countPerceptrons,Layer* privLayer):priviousLayer(privLayer), co
 	}
 
 }
+Layer::Layer(int countPerceptrons, Layer* privLayer, float h, float*w) :Layer(countPerceptrons, privLayer, h)
+{
+	if (priviousLayer) {
+		for (int i = 0; i < count; i++)
+		{
+			for (int j = 0; j < countPrivPerceptrons; j++)
+			{
+				float w3 = w[(j*countPrivPerceptrons) +i ];
+				getPerceptron(i)->setWeight(i,w3);
 
+			}
+		}
+
+	}
+}
 Layer::~Layer()
 {
 }
@@ -42,7 +56,7 @@ void Layer::setPerceptronValuesForLayer(float* inputTrain)
 {
 	for (int i = 0; i < getCountPerceptrons(); i++)
 	{
-		percList[i]->setValue(inputTrain[i]);
+		percList[i]->setFactValue(inputTrain[i]);
 	}
 }
 //void Layer::setPerceptronWeightForLayer()
@@ -55,11 +69,14 @@ void Layer::setPerceptronValuesForLayer(float* inputTrain)
 void Layer::calculateSetPerceptronValueForLayer()
 {
 	float tempValue = 0;
+	float value, weight;
 	for (int j = 0; j < getCountPerceptrons(); j++) {
 		tempValue = 0;
 		for (int i = 0; i < getPriviousLayer()->getCountPerceptrons(); i++)
 		{
-			tempValue += getPriviousLayer()->getPerceptron(i)->getValue();
+			value= getPriviousLayer()->getPerceptron(i)->getValue();
+			weight = getPerceptron(j)->getWeight()[i];
+			tempValue += value * weight;
 		}
 		percList[j]->setValue(tempValue);
 	}
@@ -73,11 +90,11 @@ void Layer::calculatePerceptronDeltaForLayer()
 		for (int j = 0; j < getCountPerceptrons(); j++)
 		{
 			float weightPrivPerc = getPerceptron(j)->getWeight()[i];
-			float deltaCurrentPerc = getPerceptron(j)->getDelta();
+			float deltaCurrentPerc = getPerceptron(j)->getDeltaError();
 			tempDelta += weightPrivPerc * deltaCurrentPerc;
 		}
-		getPriviousLayer()->getPerceptron(i)->setDelta(tempDelta);
-
+		float value = getPriviousLayer()->getPerceptron(i)->getValue();
+		getPriviousLayer()->getPerceptron(i)->setDeltaError(tempDelta*value*(1- value));
 	}
 }
 
@@ -97,4 +114,25 @@ void Layer::showNumberPerceptron()
 		cout << "Value  Perceptron[" << i << "]=" << percList[i]->getValue()<< endl;
 		percList[i]->showWeightPerceptron();
 	}
+}
+
+void Layer::calculatePerceptronWeightForLayer()
+{
+	for (int i = 0; i < getCountPerceptrons(); i++)
+	{
+		for (int j = 0; j < countPrivPerceptrons; j++)
+		{
+			float weightPrivPerc = getPerceptron(i)->getWeight()[j];
+			float deltaCurrentPerc = getPerceptron(i)->getDeltaError();
+			float value = getPriviousLayer()->getPerceptron(j)->getValue();
+			getPerceptron(i)->setWeight(j, weightPrivPerc+ deltaCurrentPerc* value*h);
+		}
+	}
+}
+
+void Layer::testPerceptron(float * inputTest)
+{
+
+	//for()
+
 }

@@ -1,28 +1,18 @@
 #include "stdafx.h"
 #include "Perceptron.h"
 
-Perceptron::Perceptron(vector<Perceptron*> PrivPerceptron):PrivPerceptron(PrivPerceptron)
+Perceptron::Perceptron(vector<Perceptron*> PrivPerceptron) :PrivPerceptron(PrivPerceptron)
 {
 	countPerceptronsInPrivLayer = (int)PrivPerceptron.size();
-	weight = new float[countPerceptronsInPrivLayer];
-	//init weight random value
-	for (int i = 0; i < countPerceptronsInPrivLayer; i++)
-	{
-		weight[i] = (float)(rand()) / (RAND_MAX / 2) - 1;
-		oldWeight = 0.0f;
-	}	
+	if (countPerceptronsInPrivLayer>0) {
+		weight = new float[countPerceptronsInPrivLayer];
+		//init weight random value
+		for (int i = 0; i < countPerceptronsInPrivLayer; i++)
+		{
+			weight[i] = (float)(rand()) / (RAND_MAX / 2) - 1;
+		}
+	}
 }
-//void Perceptron::startTest() {
-//	countPerceptronsInPrivLayer = getPrivLayer()->getCountPerceptrons();
-//	weight = new float[countPerceptronsInPrivLayer];
-//	//init weight random value
-//	for (int i = 0; i < countPerceptronsInPrivLayer; i++)
-//	{
-//		weight[i] = (float)(rand()) / (RAND_MAX / 2) - 1;
-//
-//		oldWeight = 0.0f;
-//	}
-//}
 
 
 
@@ -34,7 +24,6 @@ void Perceptron::setWeightLinkPrivLayer(int countPerceptronsInPrivLayer) {
 	{
 		weight[i] = (float)(rand()) / (RAND_MAX / 2) - 1;
 		
-		oldWeight = 0.0f;
 	}
 }
 
@@ -55,6 +44,11 @@ Perceptron::~Perceptron()
 void Perceptron::setValue(float newValue)
 {
 	value = sigmoid(newValue);
+}
+
+void Perceptron::setFactValue(float newValue)
+{
+	value = newValue;
 }
 
 float Perceptron::sigmoid(float in)
