@@ -16,15 +16,15 @@ NetWork::NetWork(int countHiddenLayers, int *hiddenLayers, int countInputParam, 
 	layerList.push_back(lStart);
 
 	//for test
-	float w[] = { -1,2,1,1,3,-2 };
+	//float w[] = { -1,2,1,1,3,-2 };
 	//todo Init; start init memory
 	for (int i = 0; i < countHiddenLayers; i++)
 	{
-		Layer *l = new Layer(hiddenLayers[i], layerList[i], h,w);
+		Layer *l = new Layer(hiddenLayers[i], layerList[i], h);
 		layerList.push_back(l);
 	}
-	float w2[] = { 1,2,4 };
-	Layer *lEnd = new Layer(1, layerList[countHiddenLayers], h,w2);
+	//float w2[] = { 1,2,4 };
+	Layer *lEnd = new Layer(1, layerList[countHiddenLayers], h);
 	layerList.push_back(lEnd);
 
 }
@@ -50,7 +50,7 @@ void NetWork::feedForward()
 		float factOutData = layerList[countHiddenLayers+1]->getPerceptron(0)->getValue();
 		float delta = (targetOutData - factOutData)*factOutData*(1- factOutData);
 		layerList[countHiddenLayers+1]->getPerceptron(0)->setDeltaError(delta);
-		cout <<"  targetOutData =  "<< targetOutData<<"  factOutData =  "<< factOutData<<endl;
+		//cout <<"  targetOutData =  "<< targetOutData<<"  factOutData =  "<< factOutData<<endl;
 
 		backPropogation();
 
@@ -66,7 +66,7 @@ void NetWork::backPropogation()
 		layerList[i]->calculatePerceptronDeltaForLayer();
 	}
 	//correct weight for each layer
-	for (int i = 1 ; i < countHiddenLayers+1; i++)
+	for (int i = 1 ; i <= countHiddenLayers+1; i++)
 	{
 		layerList[i]->calculatePerceptronWeightForLayer();
 	}

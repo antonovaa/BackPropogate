@@ -30,8 +30,8 @@ Layer::Layer(int countPerceptrons, Layer* privLayer, float h, float*w) :Layer(co
 		{
 			for (int j = 0; j < countPrivPerceptrons; j++)
 			{
-				float w3 = w[(j*countPrivPerceptrons) +i ];
-				getPerceptron(i)->setWeight(i,w3);
+				float w3 = w[(i*(count-1)) +j ];
+				getPerceptron(i)->setWeight(j,w3);
 
 			}
 		}
