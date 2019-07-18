@@ -73,12 +73,3 @@ vector<InputTrainParams*> ReaderParams::getParamsInputOutput(string path, int co
 	else cout << "Unable to open file";
 	return inputOutputList;
 }
-
-//vector<InputTrainParams*> ReaderParams::getParamsInputOutput(string path, int& countParam, int countInput, int params)
-//{
-//	this->params = params;
-//	if (params != 0) {
-//		withParams = true;
-//	}
-//	return ReaderParams::getParamsInputOutput(path, countParam, countInput);
-//}
