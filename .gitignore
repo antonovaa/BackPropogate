@@ -1,15 +1,3 @@
-/.vs
-/Binaries
-Build
-Intermediate
-Saved
-DerivedDataCache
-Plugins/ConstantineJSONSerializer
-Plugins/OrionStreamer
-*.sln
 *.db
 *.bat
-*.dll
 *.pdb
-*.exe
-BOSCH_Concept.uproject
